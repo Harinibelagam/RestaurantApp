@@ -22,7 +22,7 @@ export default function Login() {
     <div
       className="d-flex align-items-center justify-content-center"
       style={{
-        height: '100vh',
+        height: '100vh', //viewport
         backgroundImage: 'url(https://images.unsplash.com/photo-1600891964599-f61ba0e24092)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
