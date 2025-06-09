@@ -1,44 +1,239 @@
 
-import React from 'react';
-import { Table } from 'react-bootstrap';
 
-const jsonString = `[
-  { "id": 1, "name": "Vanilla Ice Cream", "price": "₹80" },
-  { "id": 2, "name": "Chocolate Ice Cream", "price": "₹90" },
-  { "id": 3, "name": "Mango Kulfi", "price": "₹100" },
-  { "id": 4, "name": "Pistachio Kulfi", "price": "₹110" },
-  { "id": 5, "name": "Strawberry Ice Cream", "price": "₹85" },
-  { "id": 6, "name": "Butter Scotch Ice Cream", "price": "₹95" },
-  { "id": 7, "name": "Gulab Jamun", "price": "₹70" },
-  { "id": 8, "name": "Ras Malai", "price": "₹90" },
-  { "id": 9, "name": "Kheer", "price": "₹80" },
-  { "id": 10, "name": "Fruit Salad with Ice Cream", "price": "₹120" }
-]`;
+// import React from 'react';
+// import { Container, Row, Col, Card } from 'react-bootstrap';
+// const menuItems = [
+//   {
+//     name: "Chicken",
+//     category: "Main Course",
+//     price: "₹280",
+//     image: "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2hpY2tlbiUyMHRpa2thfGVufDB8fDB8fHww",
+//   },
+//   {
+//     name: "Masala Dosa",
+//     category: "South Indian",
+//     price: "₹120",
+//     image: "https://images.unsplash.com/photo-1694849789325-914b71ab4075?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8TWFzYWxhJTIwZG9zYXxlbnwwfHwwfHx8MA%3D%3D",
+//   },
+//   {
+//     name: "Paneer Butter Masala",
+//     category: "Vegetarian",
+//     price: "₹220",
+//     image: "https://images.unsplash.com/photo-1701579231378-3726490a407b?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8UGFuZWVyJTIwYnV0dGVyJTIwbWFzYWxhfGVufDB8fDB8fHww",
+//   },
+//   {
+//     name: "Chicken Biryani",
+//     category: "Rice Dish",
+//     price: "₹250",
+//     image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2tlbiUyMGJpcml5YW5pfGVufDB8fDB8fHww",
+//   },
+//   {
+//     name: "Ras Malai",
+//     category: "Dessert",
+//     price: "₹90",
+//     image: "https://media.istockphoto.com/id/884011250/photo/ras-malai-is-an-indian-dessert.jpg?s=612x612&w=0&k=20&c=hdl3cneTodgvAyK7VBe-SW8CYtRtCznq08F5H56WYmA=",
+//   },
+//   {
+//     name: "Mango Kulfi",
+//     category: "Frozen Dessert",
+//     price: "₹100",
+//     image: "https://media.istockphoto.com/id/1149246037/photo/mango-and-pistachio-kulfi-lollies-on-blue-background.jpg?s=612x612&w=is&k=20&c=RpRZMm-yi-VdGGCgslDCpIumhzLuT7bXoY3aoToP3T0="
+//   },
+//   {
+//     name: "Gulab Jamun",
+//     category: "Dessert",
+//     price: "₹70",
+//     image: "https://media.istockphoto.com/id/1188000786/photo/gulab-jamun-in-bowl-on-wooden-background-indian-dessert-or-sweet-dish.jpg?s=612x612&w=is&k=20&c=MBTO0T1QNqiLKCf-st0lT_KvNsHt4ov5qapL7FX_Ubo=",
+//   },
+//   {
+//     name: "Fruit Salad",
+//     category: "Healthy Dessert",
+//     price: "₹120",
+//     image: "https://images.unsplash.com/photo-1658431618300-a69b07fb5782?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZnJ1aXQlMjBzYWxhZHxlbnwwfHwwfHx8MA%3D%3D",
+//   },
+//   {
+//     name: "Egg Curry",
+//     category: "Main Course",
+//     price: "₹200",
+//     image: "https://media.istockphoto.com/id/1185235293/photo/boiled-curry-eggs-in-spicy-sauce-close-up-in-a-plate-vertical-top-view.jpg?s=1024x1024&w=is&k=20&c=kz0WBVoW9Gwr22JJZL8KM4YuwgFgPBCgFsPezIXNuSc=",
+//   },
+//   {
+//     name: "Fish Curry",
+//     category: "Seafood",
+//     price: "₹300",
+//     image: "https://images.unsplash.com/photo-1682622110397-37f6e928f890?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZmlzaCUyMGN1cnJ5fGVufDB8fDB8fHww",
+//   },
+//   {
+//     id: 11,
+//     name: 'Vanilla Ice Cream',
+//     category: 'Dessert',
+//     price: '₹80',
+//     image: 'https://media.istockphoto.com/id/466727269/photo/one-single-lemon-ice-cream-scooped-onto-a-plain-background.jpg?s=612x612&w=is&k=20&c=-0Zn8XTQo41qmwGTsR0cMA_3-S4IJNFA9GOwx1FisG0=',
+//   },
+//   {
+//     id: 12,
+//     name: 'Noodles',
+//     category: 'snacks',
+//     price: '₹120',
+//     image: 'https://media.istockphoto.com/id/1292637257/photo/veg-hakka-noodles-a-popular-oriental-dish-made-with-noodles-and-vegetables-served-over-a.jpg?s=612x612&w=is&k=20&c=kMhHRH5l742Pt4VMJobYure05n6ons3wsAtwemFjuDk=',
+//   },
+//   ];
+// export default function MenuWithImages() {
+//   return (
+//     <div style={{ background: '#fffaf3', minHeight: '100vh', padding: '40px 0' }}>
+//       <Container>
+//         <h2 className="text-center mb-5" style={{ fontFamily: 'Poppins', fontWeight: 'bold', color: '#e85d04' }}>
+//           🍽️ Today's Special
+//         </h2>
+//         <Row>
+//           {menuItems.map(({ id, name, category, price, image }) => (
+//             <Col key={id} md={6} lg={4} className="mb-4">
+//               <Card className="h-100 shadow-sm border-0 card-hover" style={{ transition: 'transform 0.3s' }}>
+//                 <Card.Img
+//                   variant="top"
+//                   src={image}
+//                   alt={name}
+//                   style={{ height: '220px', objectFit: 'cover' }}
+//                 />
+//                 <Card.Body>
+//                   <Card.Title>{name}</Card.Title>
+//                   <Card.Subtitle className="mb-2 text-muted">{category}</Card.Subtitle>
+//                   <Card.Text><strong>Price:</strong> {price}</Card.Text>
+//                 </Card.Body>
+//               </Card>
+//             </Col>
+//           ))}
+//         </Row>
+//       </Container>
 
-const menu1Data = JSON.parse(jsonString);
+//       <style>
+//         {`
+//           .card-hover:hover {
+//             transform: scale(1.03);
+//             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+//           }
+//         `}
+//       </style>
+//     </div>
+//   );
+// }
 
-export default function Menu1() {
+import React, { useState } from 'react';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
+
+const menuItems = [
+  {
+    name: "Chicken",
+    category: "Main Course",
+    price: "₹280",
+    image: "https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?w=1000&auto=format&fit=crop&q=60",
+  },
+  {
+    name: "Masala Dosa",
+    category: "South Indian",
+    price: "₹120",
+    image: "https://images.unsplash.com/photo-1694849789325-914b71ab4075?w=1000&auto=format&fit=crop&q=60",
+  },
+  {
+    name: "Paneer Butter Masala",
+    category: "Vegetarian",
+    price: "₹220",
+    image: "https://images.unsplash.com/photo-1701579231378-3726490a407b?w=1000&auto=format&fit=crop&q=60",
+  },
+  {
+    name: "Chicken Biryani",
+    category: "Rice Dish",
+    price: "₹250",
+    image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=1000&auto=format&fit=crop&q=60",
+  },
+  {
+    name: "Ras Malai",
+    category: "Dessert",
+    price: "₹90",
+    image: "https://media.istockphoto.com/id/884011250/photo/ras-malai-is-an-indian-dessert.jpg?s=612x612&w=0&k=20&c=hdl3cneTodgvAyK7VBe-SW8CYtRtCznq08F5H56WYmA=",
+  },
+  {
+    name: "Mango Kulfi",
+    category: "Frozen Dessert",
+    price: "₹100",
+    image: "https://media.istockphoto.com/id/1149246037/photo/mango-and-pistachio-kulfi-lollies-on-blue-background.jpg?s=612x612&w=is&k=20&c=RpRZMm-yi-VdGGCgslDCpIumhzLuT7bXoY3aoToP3T0=",
+  },
+  {
+    name: "Gulab Jamun",
+    category: "Dessert",
+    price: "₹70",
+    image: "https://media.istockphoto.com/id/1188000786/photo/gulab-jamun-in-bowl-on-wooden-background-indian-dessert-or-sweet-dish.jpg?s=612x612&w=is&k=20&c=MBTO0T1QNqiLKCf-st0lT_KvNsHt4ov5qapL7FX_Ubo=",
+  },
+  {
+    name: "Fruit Salad",
+    category: "Healthy Dessert",
+    price: "₹120",
+    image: "https://images.unsplash.com/photo-1658431618300-a69b07fb5782?w=1000&auto=format&fit=crop&q=60",
+  },
+  {
+    name: "Egg Curry",
+    category: "Main Course",
+    price: "₹200",
+    image: "https://media.istockphoto.com/id/1185235293/photo/boiled-curry-eggs-in-spicy-sauce-close-up-in-a-plate-vertical-top-view.jpg?s=1024x1024&w=is&k=20&c=kz0WBVoW9Gwr22JJZL8KM4YuwgFgPBCgFsPezIXNuSc=",
+  },
+  {
+    name: "Fish Curry",
+    category: "Seafood",
+    price: "₹300",
+    image: "https://images.unsplash.com/photo-1682622110397-37f6e928f890?w=1000&auto=format&fit=crop&q=60",
+  },
+  {
+    name: 'Vanilla Ice Cream',
+    category: 'Dessert',
+    price: '₹80',
+    image: 'https://media.istockphoto.com/id/466727269/photo/one-single-lemon-ice-cream-scooped-onto-a-plain-background.jpg?s=612x612&w=is&k=20&c=-0Zn8XTQo41qmwGTsR0cMA_3-S4IJNFA9GOwx1FisG0=',
+  },
+  {
+    name: 'Noodles',
+    category: 'Snacks',
+    price: '₹120',
+    image: 'https://media.istockphoto.com/id/1292637257/photo/veg-hakka-noodles-a-popular-oriental-dish-made-with-noodles-and-vegetables-served-over-a.jpg?s=612x612&w=is&k=20&c=kMhHRH5l742Pt4VMJobYure05n6ons3wsAtwemFjuDk=',
+  },
+];
+export default function MenuWithImages() {
+  const navigate = useNavigate();
+
+  const handleAddOrder = (item) => {
+    navigate('/home/addorders', { state: { item } });
+  };
+
   return (
-    <div>
-      <h3 className="mb-4">Desserts - Ice Creams & Sweets</h3>
-      <Table striped bordered hover responsive>
-        <thead className="table-dark">
-          <tr>
-            <th>#</th>
-            <th>Dessert</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {menu1Data.map(({ id, name, price }) => (
-            <tr key={id}>
-              <td>{id}</td>
-              <td>{name}</td>
-              <td>{price}</td>
-            </tr>
+    <div style={{ background: '#fffaf3', minHeight: '100vh', padding: '40px 0' }}>
+      <Container>
+        <h2 className="text-center mb-5" style={{ fontFamily: 'Poppins', fontWeight: 'bold', color: '#e85d04' }}>
+          🍽️ Today's Special
+        </h2>
+        <Row>
+          {menuItems.map((menuItem, index) => (
+            <Col key={index} md={6} lg={4} className="mb-4">
+              <Card className="h-100 shadow-sm border-0 card-hover" style={{ transition: 'transform 0.3s' }}>
+                <Card.Img variant="top" src={menuItem.image} alt={menuItem.name} style={{ height: '220px', objectFit: 'cover' }} />
+                <Card.Body>
+                  <Card.Title>{menuItem.name}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">{menuItem.category}</Card.Subtitle>
+                  <Card.Text><strong>Price:</strong> {menuItem.price}</Card.Text>
+                  <Button variant="success" onClick={() => handleAddOrder(menuItem)}>Add Order</Button>
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-        </tbody>
-      </Table>
+        </Row>
+      </Container>
+      <style>
+        {`
+          .card-hover:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+          }
+        `}
+      </style>
     </div>
   );
 }

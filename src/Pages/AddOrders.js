@@ -1,233 +1,229 @@
-import React, { useState, useContext } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-import { OrderContext } from '../context/OrderContext';
-import { useNavigate } from 'react-router-dom';
 
-export default function AddOrders() {
-  const { orders, setOrders } = useContext(OrderContext);
-  const [formData, setFormData] = useState({
-    customer: '',
-    item: '',
-    quantity: '',
-    instructions: ''
-  });
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError('');
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!formData.customer.trim() || !formData.item.trim() || !formData.quantity) {
-      setError('Please fill in all required fields.');
-      return;
-    }
-
-    const newOrder = {
-      id: orders.length + 1,
-      ...formData,
-      price: 100 * Number(formData.quantity), // Example price ₹100 per item
-    };
-
-    setOrders([...orders, newOrder]);
-
-    // Redirect to payment page with order details as state
-    navigate('/home/payment', { state: newOrder });
-  };
-
-  return (
-    <div>
-      <h3 className="mb-4">Add New Order</h3>
-
-      {error && <Alert variant="danger">{error}</Alert>}
-
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Customer Name<span className="text-danger">*</span></Form.Label>
-          <Form.Control
-            type="text"
-            name="customer"
-            value={formData.customer}
-            onChange={handleChange}
-            placeholder="Enter customer's name"
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Food Item<span className="text-danger">*</span></Form.Label>
-          <Form.Control
-            type="text"
-            name="item"
-            value={formData.item}
-            onChange={handleChange}
-            placeholder="Enter food item"
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Quantity<span className="text-danger">*</span></Form.Label>
-          <Form.Control
-            type="number"
-            name="quantity"
-            min="1"
-            value={formData.quantity}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Special Instructions</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={2}
-            name="instructions"
-            value={formData.instructions}
-            onChange={handleChange}
-            placeholder="Optional"
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Submit Order & Pay
-        </Button>
-      </Form>
-    </div>
-  );
-}
-
-
-// import React, { useState, useContext } from 'react';
+// //AddOrders.js
+// import React, { useState, useEffect } from 'react';
 // import { Form, Button, Alert } from 'react-bootstrap';
-// import { OrderContext } from '../context/OrderContext';
-// import { useNavigate, useLocation } from 'react-router-dom';
+// import { useLocation, useNavigate } from 'react-router-dom';
 
 // export default function AddOrders() {
-//   const { orders, setOrders } = useContext(OrderContext);
+//   const location = useLocation();
+//   const navigate = useNavigate();
+//   const item = location.state?.item;
+
 //   const [formData, setFormData] = useState({
 //     customer: '',
-//     item: '',
-//     quantity: '',
-//     instructions: ''
+//     quantity: 1,
+//     instructions: '',
+//     itemName: item?.name || '',
+//     price: item?.price || '',
 //   });
-//   const [error, setError] = useState('');
-//   const navigate = useNavigate();
-//   const location = useLocation();
 
-//   // Read payment success flag from navigation state
-//   const paymentSuccessFromState = location.state?.paymentSuccess || false;
-//   const [paymentSuccess, setPaymentSuccess] = useState(paymentSuccessFromState);
+//   const [error, setError] = useState('');
+
+//   useEffect(() => {
+//     if (!item) {
+//       setError('No item selected. Please go back and select a menu item.');
+//     }
+//   }, [item]);
 
 //   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//     setFormData(prev => ({
+//       ...prev,
+//       [e.target.name]: e.target.value,
+//     }));
 //     setError('');
 //   };
 
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
-
-//     if (!formData.customer.trim() || !formData.item.trim() || !formData.quantity) {
-//       setError('Please fill in all required fields.');
+//     if (!formData.customer.trim()) {
+//       setError('Customer name is required');
 //       return;
 //     }
 
-//     const newOrder = {
-//       id: orders.length + 1,
-//       ...formData,
-//       price: 100 * Number(formData.quantity), // ₹100 per item
-//     };
+//     const numericPrice = parseInt(item.price.replace(/[^\d]/g, '')) || 0;
+//     const total = numericPrice * formData.quantity;
 
-//     setOrders([...orders, newOrder]);
-
-//     // Clear any previous success messages when submitting a new order
-//     setPaymentSuccess(false);
-
-//     // Navigate to payment page with newOrder details
-//     navigate('/home/payment', { state: newOrder });
+//     navigate('/home/payment', {
+//       state: {
+//         dish: formData.itemName,
+//         customer: formData.customer,
+//         price: total,
+//         quantity: formData.quantity,
+//         instructions: formData.instructions,
+//       }
+//     });
 //   };
 
 //   return (
-//     <div>
-//       <h3 className="mb-4">Add New Order</h3>
-
+//     <div className="container mt-4">
+//       <h2>Add Order</h2>
 //       {error && <Alert variant="danger">{error}</Alert>}
-
-//       {/* Show payment success alert if paymentSuccess is true */}
-//       {paymentSuccess && (
-//         <Alert
-//           variant="success"
-//           onClose={() => setPaymentSuccess(false)}
-//           dismissible
-//         >
-//           Payment successful! Your order has been placed.
-//         </Alert>
-//       )}
-
 //       <Form onSubmit={handleSubmit}>
 //         <Form.Group className="mb-3">
-//           <Form.Label>
-//             Customer Name<span className="text-danger">*</span>
-//           </Form.Label>
+//           <Form.Label>Customer Name</Form.Label>
 //           <Form.Control
 //             type="text"
 //             name="customer"
 //             value={formData.customer}
 //             onChange={handleChange}
-//             placeholder="Enter customer's name"
 //             required
 //           />
 //         </Form.Group>
 
 //         <Form.Group className="mb-3">
-//           <Form.Label>
-//             Food Item<span className="text-danger">*</span>
-//           </Form.Label>
-//           <Form.Control
-//             type="text"
-//             name="item"
-//             value={formData.item}
-//             onChange={handleChange}
-//             placeholder="Enter food item"
-//             required
-//           />
+//           <Form.Label>Item</Form.Label>
+//           <Form.Control type="text" value={formData.itemName} readOnly />
 //         </Form.Group>
 
 //         <Form.Group className="mb-3">
-//           <Form.Label>
-//             Quantity<span className="text-danger">*</span>
-//           </Form.Label>
+//           <Form.Label>Price (₹)</Form.Label>
+//           <Form.Control type="text" value={formData.price} readOnly />
+//         </Form.Group>
+
+//         <Form.Group className="mb-3">
+//           <Form.Label>Quantity</Form.Label>
 //           <Form.Control
 //             type="number"
 //             name="quantity"
-//             min="1"
 //             value={formData.quantity}
 //             onChange={handleChange}
+//             min={1}
 //             required
 //           />
 //         </Form.Group>
 
 //         <Form.Group className="mb-3">
-//           <Form.Label>Special Instructions</Form.Label>
+//           <Form.Label>Instructions</Form.Label>
 //           <Form.Control
 //             as="textarea"
-//             rows={2}
 //             name="instructions"
+//             rows={2}
 //             value={formData.instructions}
 //             onChange={handleChange}
-//             placeholder="Optional"
 //           />
 //         </Form.Group>
 
 //         <Button variant="primary" type="submit">
-//           Submit Order & Pay
+//           Submit & Pay
 //         </Button>
 //       </Form>
 //     </div>
 //   );
 // }
+
+import React, { useState, useEffect } from 'react';
+import { Form, Button, Alert } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+export default function AddOrders() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const item = location.state?.item;
+
+  const [formData, setFormData] = useState({
+    customer: '',
+    quantity: 1,
+    instructions: '',
+    itemName: item?.name || '',
+    price: item?.price || '',
+  });
+
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (!item) {
+      setError('No item selected. Please go back and select a menu item.');
+    }
+  }, [item]);
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+    setError('');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.customer.trim()) {
+      setError('Customer name is required');
+      return;
+    }
+
+    const numericPrice = parseInt(item.price.replace(/[^\d]/g, '')) || 0;
+    const total = numericPrice * formData.quantity;
+
+    navigate('/home/payment', {
+      state: {
+        dish: formData.itemName,
+        customer: formData.customer,
+        price: total,
+        quantity: formData.quantity,
+        instructions: formData.instructions,
+      }
+    });
+  };
+
+  return (
+    <div className="container mt-4">
+      <div className="row justify-content-center">
+        <div className="col-12 col-md-8 col-lg-6">
+          <h2 className="text-center mb-4">Add Order</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Customer Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="customer"
+                value={formData.customer}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Item</Form.Label>
+              <Form.Control type="text" value={formData.itemName} readOnly />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Price (₹)</Form.Label>
+              <Form.Control type="text" value={formData.price} readOnly />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control
+                type="number"
+                name="quantity"
+                value={formData.quantity}
+                onChange={handleChange}
+                min={1}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Instructions</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="instructions"
+                rows={2}
+                value={formData.instructions}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <div className="d-grid">
+              <Button variant="primary" type="submit">
+                Submit & Pay
+              </Button>
+            </div>
+          </Form>
+        </div>
+      </div>
+    </div>
+  );
+}
